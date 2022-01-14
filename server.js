@@ -5,6 +5,7 @@ import routes from "./routes";
 import session from "express-session";
 
 import db from "./config/db";
+import { corsOptions } from "./config/cors";
 import { sessionOptions } from "./config/session";
 
 import logColors, { logSuccess } from "./config/logColors";
@@ -12,9 +13,11 @@ import logColors, { logSuccess } from "./config/logColors";
 const app = express();
 db.connect();
 
+app.set("trust proxy", 1);
 app.use(session(sessionOptions));
 
-app.use(cors());
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -30,7 +33,7 @@ app.listen(PORT, () => {
   ██║  ██║╚██████╔╝   ██║   ██║  ██║    ██║  ██║██║     ██║
   ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝     ╚═╝  
   `);
-  logSuccess("Hotel Management Service v0.1.0");
+  logSuccess("Authentication Server v1.0.0");
   console.log(
     logColors.BgCyan,
     logColors.FgBlack,
