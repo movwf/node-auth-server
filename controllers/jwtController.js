@@ -48,19 +48,30 @@ export const login_user = async (req, res) => {
 
         const token = signJWT(userObj);
 
-        res.json({
+        res.send({
           result: "OK",
           user: {
             name: user.name,
             avatar: user.avatar,
+            token,
           },
-          accessToken: token,
         });
       } else res.send({ result: "Error", message: "Password is not valid!" });
     } else res.send({ result: "Error", message: "User not found!" });
   } catch (error) {
     res.send({ result: "Error", error });
   }
+};
+
+export const logout = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err)
+      res.send({ result: "Error", message: "User cannot be logged out!" });
+    else {
+      res.clearCookie("connect.sid", { path: "/" });
+      res.send({ result: "OK", message: "Logged out!" });
+    }
+  });
 };
 
 export const register_user = async (req, res) => {

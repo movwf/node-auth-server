@@ -1,0 +1,22 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ELIFECYCLE",
+    "errno": "ENOENT",
+    "syscall": "spawn",
+    "file": "sh",
+    "pkgid": "node-auth-server@1.0.0",
+    "stage": "start",
+    "script": "nodemon server.js",
+    "pkgname": "node-auth-server",
+    "err": {
+      "name": "pnpm",
+      "message": "node-auth-server@1.0.0 start: `nodemon server.js`\nspawn ENOENT",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: node-auth-server@1.0.0 start: `nodemon server.js`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/home/user/.nvm/versions/node/v14.17.6/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.1/node_modules/pnpm/dist/pnpm.cjs:91958:22)\n    at ChildProcess.emit (events.js:400:28)\n    at maybeClose (internal/child_process.js:1055:16)\n    at Process.ChildProcess._handle.onexit (internal/child_process.js:288:5)"
+    }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
+}

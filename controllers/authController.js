@@ -35,6 +35,17 @@ export const login_user = async (req, res) => {
   }
 };
 
+export const logout = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err)
+      res.send({ result: "Error", message: "User cannot be logged out!" });
+    else {
+      res.clearCookie("connect.sid", { path: "/" });
+      res.send({ result: "OK", message: "Logged out!" });
+    }
+  });
+};
+
 export const register_user = async (req, res) => {
   const { name, email, password, avatar } = req.body;
   const hashedPassword = await hash(password, 10);
@@ -51,9 +62,14 @@ export const register_user = async (req, res) => {
       )
     );
 
-    res.send({ result: "OK", user: user.name });
+    res.send({
+      result: "OK",
+      user: {
+        name: user.name,
+      },
+    });
   } catch (error) {
-    res.send({ result: "Error", message: error });
+    res.send({ result: "Error", error: error });
   }
 };
 
@@ -63,7 +79,7 @@ export const check_session = async (req, res) => {
 };
 
 export const check_browser = async (req, res) => {
-  const { browser } = req.session;
+  const { browser } = req.session.user;
   const browserHeader = req.headers["user-agent"];
 
   if (browser === browserHeader) {
